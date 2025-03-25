@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remix JS vs Next JS - The George Times</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px; /* Set font size to 13px */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <header class="text-center p-6">
+        <h1 class="text-4xl font-bold">Remix JS vs Next JS</h1>
+        <p class="text-gray-400">By George Holmes | 3/17/25</p>
+    </header>
+    <main class="p-6 max-w-2xl mx-auto"> <!-- Centered and narrow layout -->
+        <div class="flex flex-col md:flex-row">
+            <img src="remix-vs-next.jpg" alt="Remix JS vs Next JS" class="w-full md:w-1/2 rounded-lg shadow-lg mr-4 mb-4">
+            <div class="md:w-1/2">
+                <p>Remix JS is a relatively new JavaScript framework created in 2020. Recently, it has been taking off with websites like ChatGPT (OpenAI), Docker, Shopify, and NASA using Remix JS. But is it really that good compared to Next JS?</p>
+
+                <p>For about a month now, I have been using Next JS in all of my projects, but that was before I learned about Remix JS. But before I tell you which one is better, let's first compare them.</p>
+
+                <table class="mt-4 w-full text-left border border-gray-600">
+                    <thead>
+                        <tr>
+                            <th class="border-b border-gray-600 p-2">Feature</th>
+                            <th class="border-b border-gray-600 p-2">Remix JS</th>
+                            <th class="border-b border-gray-600 p-2">Next JS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border-b border-gray-600 p-2">TypeScript support</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-600 p-2">Nested routes</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-600 p-2">Server side rendering</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-600 p-2">Pre-fetching</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                            <td class="border-b border-gray-600 p-2">No</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-600 p-2">Pending UI</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-600 p-2">Dynamic file picks</td>
+                            <td class="border-b border-gray-600 p-2">No</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b border-gray-600 p-2">Authentication</td>
+                            <td class="border-b border-gray-600 p-2">Yes (kinda)</td>
+                            <td class="border-b border-gray-600 p-2">Yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="mt-4">Chart by George Holmes</p>
+
+                <p>To be fair, comparing these frameworks together is not really fair, but they are very similar. They both have the most important features like dynamic server-side rendering and pending UI. However, in terms of how supported they are by something like Supabase (one of my favorites), Next JS wins.</p>
+
+                <p>Now in other areas like UI components, I think that Remix JS wins, especially for its great pre-rendering UI components with React and Redux for user state management.</p>
+
+                <p>In conclusion, generally for big projects, I would say use Next.js mainly for its built-in tools and great MVC. However, I would still strongly suggest trying out Remix JS in a small project.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-6 mt-10 border-t border-gray-700 text-center">
+        <p>© 2023 The George Times. All rights reserved.</p>
+        <div class="flex justify-center space-x-4 mt-2">
+            <a href="https://twitter.com/yourusername" target="_blank" class="text-blue-400 hover:underline">
+                <i class="fab fa-twitter fa-lg"></i>
+            </a>
+            <a href="https://youtube.com/yourchannel" target="_blank" class="text-blue-400 hover:underline">
+                <i class="fab fa-youtube fa-lg"></i>
+            </a>
+            <a href="https://github.com/yourusername" target="_blank" class="text-blue-400 hover:underline">
+                <i class="fab fa-github fa-lg"></i>
+            </a>
+        </div>
+    </footer>
+</body>
+</html>
