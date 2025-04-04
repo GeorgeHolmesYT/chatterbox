@@ -1,0 +1,51 @@
+{
+  "project_id": "chatterbox",
+  "db": {
+    "port": 54322
+  },
+  "api": {
+    "port": 54321,
+    "schemas": ["public", "auth", "storage"]
+  },
+  "studio": {
+    "port": 54323
+  },
+  "inbucket": {
+    "port": 54324
+  },
+  "storage": {
+    "buckets": ["avatars", "attachments", "banners"]
+  },
+  "auth": {
+    "site_url": "http://localhost:3000",
+    "additional_redirect_urls": ["https://localhost:3000"],
+    "autoconfirm": false,
+    "enable_signup": true
+  }
+}
+
+{
+  "project_id": "chatterbox",
+  "db": {
+    "port": 54322
+  },
+  "api": {
+    "port": 54321,
+    "schemas": ["public", "auth", "storage"]
+  },
+  "studio": {
+    "port": 54323
+  },
+  "inbucket": {
+    "port": 54324
+  },
+  "storage": {
+    "buckets": ["avatars", "attachments", "banners"]
+  },
+  "auth": {
+    "site_url": "http://localhost:3000",
+    "additional_redirect_urls": ["https://localhost:3000"],
+    "autoconfirm": false,
+    "enable_signup": true
+  }
+}
