@@ -35,13 +35,13 @@ body {
   padding: 20px;
 }
 
-.signup-container {
+.login-container, .signup-container {
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
 }
 
-.signup-card {
+.login-card, .signup-card {
   background-color: var(--card-background);
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -74,7 +74,7 @@ body {
   letter-spacing: 0.2px;
 }
 
-.signup-title {
+.login-title, .signup-title {
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 24px;
@@ -92,9 +92,13 @@ body {
   color: var(--error-color);
   font-size: 14px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.signup-form {
+.login-form, .signup-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -183,7 +187,13 @@ body {
   background-color: rgba(62, 207, 142, 0.1);
 }
 
-.signup-button {
+.forgot-password {
+  text-align: right;
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+.login-button, .signup-button {
   background-color: var(--primary-color);
   border: none;
   border-radius: 4px;
@@ -200,11 +210,11 @@ body {
   margin-top: 10px;
 }
 
-.signup-button:hover {
+.login-button:hover, .signup-button:hover {
   background-color: var(--primary-hover);
 }
 
-.signup-button:disabled {
+.login-button:disabled, .signup-button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
@@ -226,7 +236,7 @@ body {
   to { transform: rotate(360deg); }
 }
 
-.signup-footer {
+.login-footer, .signup-footer {
   margin-top: 24px;
   text-align: center;
   font-size: 14px;
@@ -252,11 +262,11 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
-  .signup-card {
+  .login-card, .signup-card {
     padding: 24px;
   }
   
-  .signup-title {
+  .login-title, .signup-title {
     font-size: 20px;
   }
   
@@ -264,7 +274,7 @@ body {
     padding: 10px 14px;
   }
   
-  .signup-button {
+  .login-button, .signup-button {
     padding: 12px 16px;
   }
 }
