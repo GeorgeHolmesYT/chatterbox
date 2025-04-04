@@ -1,25 +1,33 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '../../utils/supabaseClient';
-import { FiUser, FiMail, FiLock, FiAlertCircle } from 'react-icons/fi';
+import { FiLock, FiAlertCircle, FiCheck } from 'react-icons/fi';
 
-export default function Signup() {
-  const [username, setUsername] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+export default function UpdatePassword() {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    // Check if we have the access token in the URL (from the email link)
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = hashParams.get('access_token');
+    
+    if (!accessToken) {
+      setError('Invalid or expired password reset link. Please try again.');
+    }
+  }, []);
+
+  const handleUpdatePassword = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // Validate form
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -34,23 +42,20 @@ export default function Signup() {
     setError(null);
 
     try {
-      // Sign up with Supabase
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            username,
-          },
-        },
+      const { error } = await supabase.auth.updateUser({
+        password: password
       });
 
       if (error) throw error;
       
-      // Redirect to verify email page
-      router.push(`/verify-email?email=${encodeURIComponent(email)}`);
+      setSuccess(true);
+      
+      // Redirect to login after 3 seconds
+      setTimeout(() => {
+        router.push('/login');
+      }, 3000);
     } catch (error: any) {
-      setError(error.message || 'An error occurred during signup');
+      setError(error.message || 'An error occurred while updating your password');
     } finally {
       setLoading(false);
     }
@@ -64,7 +69,11 @@ export default function Signup() {
           <p className="auth-tagline">Connect. Chat. Share.</p>
         </div>
 
-        <h2 className="auth-title">Create your account</h2>
+        <h2 className="auth-title">Create new password</h2>
+        
+        <p className="auth-description">
+          Your new password must be different from previously used passwords.
+        </p>
 
         {error && (
           <div className="auth-error">
@@ -73,43 +82,18 @@ export default function Signup() {
           </div>
         )}
 
-        <form onSubmit={handleSignup} className="auth-form">
-          <div className="auth-form-group">
-            <label htmlFor="username">
-              <FiUser className="auth-input-icon" />
-              Username
-            </label>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Choose a username"
-              required
-              className="auth-input"
-            />
+        {success && (
+          <div className="auth-success">
+            <FiCheck />
+            <span>Password updated successfully! Redirecting to login...</span>
           </div>
+        )}
 
-          <div className="auth-form-group">
-            <label htmlFor="email">
-              <FiMail className="auth-input-icon" />
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-              className="auth-input"
-            />
-          </div>
-
+        <form onSubmit={handleUpdatePassword} className="auth-form">
           <div className="auth-form-group">
             <label htmlFor="password">
               <FiLock className="auth-input-icon" />
-              Password
+              New Password
             </label>
             <div className="auth-password-container">
               <input
@@ -117,9 +101,10 @@ export default function Signup() {
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Create a password"
+                placeholder="Enter new password"
                 required
                 className="auth-input"
+                disabled={success}
               />
               <button
                 type="button"
@@ -142,30 +127,27 @@ export default function Signup() {
                 type={showPassword ? 'text' : 'password'}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm your password"
+                placeholder="Confirm new password"
                 required
                 className="auth-input"
+                disabled={success}
               />
             </div>
           </div>
 
-          <button type="submit" className="auth-button" disabled={loading}>
+          <button type="submit" className="auth-button" disabled={loading || success}>
             {loading ? (
               <div className="auth-loading-spinner"></div>
             ) : (
-              'Sign Up'
+              'Update Password'
             )}
           </button>
         </form>
 
-        <p className="auth-terms">
-          By signing up, you agree to our Terms of Service and Privacy Policy.
-        </p>
-
         <div className="auth-footer">
-          Already have an account?{' '}
+          Remember your password?{' '}
           <Link href="/login" className="auth-link">
-            Log in
+            Back to login
           </Link>
         </div>
       </div>
