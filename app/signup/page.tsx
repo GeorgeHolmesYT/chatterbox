@@ -1,37 +1,53 @@
-'use client';
+'use client'
 
-import { useState, FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { supabase } from '../../utils/supabaseClient';
-import { FiUser, FiMail, FiLock, FiAlertCircle } from 'react-icons/fi';
+import { useState, FormEvent, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { supabase } from '../../utils/supabaseClient'
+import { FiUser, FiMail, FiLock, FiAlertCircle, FiCalendar } from 'react-icons/fi'
+import '../../styles/signup.css'
 
 export default function Signup() {
-  const [username, setUsername] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+  const [username, setUsername] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [dateOfBirth, setDateOfBirth] = useState<string>('')
+  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    // Reset error when form fields change
+    setError(null)
+  }, [username, email, password, dateOfBirth])
 
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     
     // Validate form
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-    
     if (password.length < 6) {
-      setError('Password must be at least 6 characters');
-      return;
+      setError('Password must be at least 6 characters')
+      return
     }
     
-    setLoading(true);
-    setError(null);
+    // Validate date of birth (user must be at least 13 years old)
+    const birthDate = new Date(dateOfBirth)
+    const today = new Date()
+    let age = today.getFullYear() - birthDate.getFullYear()
+    const monthDiff = today.getMonth() - birthDate.getMonth()
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--
+    }
+    
+    if (age < 13) {
+      setError('You must be at least 13 years old to sign up')
+      return
+    }
+    
+    setLoading(true)
+    setError(null)
 
     try {
       // Sign up with Supabase
@@ -41,20 +57,21 @@ export default function Signup() {
         options: {
           data: {
             username,
+            date_of_birth: dateOfBirth,
           },
         },
-      });
+      })
 
-      if (error) throw error;
+      if (error) throw error
       
       // Redirect to verify email page
-      router.push(`/verify-email?email=${encodeURIComponent(email)}`);
+      router.push(`/verify-email?email=${encodeURIComponent(email)}`)
     } catch (error: any) {
-      setError(error.message || 'An error occurred during signup');
+      setError(error.message || 'An error occurred during signup')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="auth-container">
@@ -132,21 +149,19 @@ export default function Signup() {
           </div>
 
           <div className="auth-form-group">
-            <label htmlFor="confirmPassword">
-              <FiLock className="auth-input-icon" />
-              Confirm Password
+            <label htmlFor="dateOfBirth">
+              <FiCalendar className="auth-input-icon" />
+              Date of Birth
             </label>
-            <div className="auth-password-container">
-              <input
-                id="confirmPassword"
-                type={showPassword ? 'text' : 'password'}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm your password"
-                required
-                className="auth-input"
-              />
-            </div>
+            <input
+              id="dateOfBirth"
+              type="date"
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+              required
+              className="auth-input"
+              max={new Date().toISOString().split('T')[0]} // Set max date to today
+            />
           </div>
 
           <button type="submit" className="auth-button" disabled={loading}>
@@ -170,5 +185,5 @@ export default function Signup() {
         </div>
       </div>
     </div>
-  );
+  )
 }

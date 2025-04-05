@@ -1,0 +1,53 @@
+@import './login.css';
+
+.auth-description {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.auth-success {
+  background-color: rgba(62, 207, 142, 0.1);
+  border: 1px solid var(--success-color);
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 20px;
+  color: var(--success-color);
+  font-size: 14px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.auth-description {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.auth-success {
+  background-color: rgba(62, 207, 142, 0.1);
+  border: 1px solid var(--success-color);
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 20px;
+  color: var(--success-color);
+  font-size: 14px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.auth-redirect-info {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+}

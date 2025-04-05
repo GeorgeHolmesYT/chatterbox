@@ -1,0 +1,21 @@
+@import './login.css';
+
+.auth-terms {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* Date input styling */
+input[type="date"].auth-input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px 14px;
+  color: var(--text-color);
+}
+
+input[type="date"].auth-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
